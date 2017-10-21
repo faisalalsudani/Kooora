@@ -10,16 +10,36 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171021125855) do
+ActiveRecord::Schema.define(version: 20171021204145) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "competitions", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "country_id"
+    t.index ["country_id"], name: "index_competitions_on_country_id"
+  end
 
   create_table "countries", force: :cascade do |t|
     t.string "name"
     t.string "flag"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "matches", force: :cascade do |t|
+    t.datetime "date"
+    t.integer "team1_score"
+    t.integer "team2_score"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "team_id"
+    t.string "home_team"
+    t.string "away_team"
+    t.index ["team_id"], name: "index_matches_on_team_id"
   end
 
   create_table "players", force: :cascade do |t|
@@ -35,17 +55,29 @@ ActiveRecord::Schema.define(version: 20171021125855) do
     t.index ["team_id"], name: "index_players_on_team_id"
   end
 
+  create_table "seasons", force: :cascade do |t|
+    t.string "name"
+    t.boolean "active"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "competition_id"
+    t.index ["competition_id"], name: "index_seasons_on_competition_id"
+  end
+
   create_table "teams", force: :cascade do |t|
     t.string "name"
     t.string "logo"
-    t.integer "points"
+    t.integer "points", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "country_id"
     t.index ["country_id"], name: "index_teams_on_country_id"
   end
 
+  add_foreign_key "competitions", "countries"
+  add_foreign_key "matches", "teams"
   add_foreign_key "players", "countries"
   add_foreign_key "players", "teams"
+  add_foreign_key "seasons", "competitions"
   add_foreign_key "teams", "countries"
 end
