@@ -1,1 +1,5 @@
 <%= @team.name %>
+
+<% @team.players.each do |player| %>
+  <p><%= player.name %><span> - <%= player.country.name %></p>
+<% end %>
