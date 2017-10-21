@@ -1,3 +1,3 @@
 class Team < ApplicationRecord
-  belongs_to :countries
+  belongs_to :country
 end
