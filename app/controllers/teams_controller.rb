@@ -33,11 +33,9 @@ class TeamsController < ApplicationController
   end
 
   def update
-    puts "#" * 50
     @team = Team.find(params[:id])
-
     if @team.update_attributes(team_params)
-      redirect_to @team.country, notice: "Evaluation updated"
+      redirect_to @team.country, notice: "Team updated"
     else
       render :edit
     end
