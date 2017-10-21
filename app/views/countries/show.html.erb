@@ -4,3 +4,9 @@
   <h4>Teams of this country:</h4>
   <p><%= team.name %></p>
 <% end %>
+
+
+<% @country.players.each do |player| %>
+  <h4>Players of this country</h4>
+  <p><%= player.name %> <span><%= player.team.name %></span></p>
+<% end %>
