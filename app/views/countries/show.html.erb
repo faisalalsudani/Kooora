@@ -1,0 +1,6 @@
+<h2><%= @country.name %></h2>
+
+<% @country.teams.each do |team| %>
+  <h4>Teams of this country:</h4>
+  <p><%= team.name %></p>
+<% end %>
