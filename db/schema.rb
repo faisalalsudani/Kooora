@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171021125855) do
+ActiveRecord::Schema.define(version: 20171021140123) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,6 +20,23 @@ ActiveRecord::Schema.define(version: 20171021125855) do
     t.string "flag"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "matches", force: :cascade do |t|
+    t.integer "home_team"
+    t.integer "away_team"
+    t.integer "home_team_score"
+    t.integer "away_team_score"
+    t.datetime "date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "team_id"
+    t.index ["team_id"], name: "index_matches_on_team_id"
+  end
+
+  create_table "matches_teams", id: false, force: :cascade do |t|
+    t.bigint "match_id", null: false
+    t.bigint "team_id", null: false
   end
 
   create_table "players", force: :cascade do |t|
@@ -38,13 +55,14 @@ ActiveRecord::Schema.define(version: 20171021125855) do
   create_table "teams", force: :cascade do |t|
     t.string "name"
     t.string "logo"
-    t.integer "points"
+    t.integer "points", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "country_id"
     t.index ["country_id"], name: "index_teams_on_country_id"
   end
 
+  add_foreign_key "matches", "teams"
   add_foreign_key "players", "countries"
   add_foreign_key "players", "teams"
   add_foreign_key "teams", "countries"

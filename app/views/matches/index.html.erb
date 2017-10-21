@@ -1,0 +1,4 @@
+<h2>Matches</h2>
+<% @matches.all.each do |match| %>
+  <p><span><%= match.home_team %></span> vs <span><%= match.away_team %></span></p>
+<% end %>
