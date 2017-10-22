@@ -6,11 +6,13 @@
 
 <hr>
 
-<% @country.players.each do |player| %>
-  <h4>Players of this country</h4>
-  <li><%= player.name %> <span>- <%= player.team.name %></span></li>
-<% end %>
+<h4>Players of this country</h4>
 
+<ul>
+  <% @country.players.each do |player| %>
+    <li><%= player.name %> <span>- <%= player.team.name %></span></li>
+  <% end %>
+</ul>
 <hr>
 
 <% @country.competitions.each do |competition| %>
