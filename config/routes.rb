@@ -1,33 +1,37 @@
 Rails.application.routes.draw do
   root 'countries#index'
 
-  resources :countries do
-    resources :teams
+  namespace :api do
+    resources :countries do
+      resources :teams, :players, :competitions
+    end
+    resources :competitions do
+      resources :competitions, :seasons, :teams
+    end
+
+    resources :teams do
+      resources :players, :matches
+    end
+
+    resources :seasons do
+      resources :matches
+    end
   end
 
   resources :countries do
-    resources :players
-  end
-
-  resources :countries do
-    resources :competitions
+    resources :teams, :players, :competitions
   end
 
   resources :competitions do
-    resources :seasons
-  end
-
-  resources :competitions do
-    resources :teams
+    resources :competitions, :seasons, :teams
   end
 
   resources :teams do
-    resources :players
+    resources :players, :matches
   end
 
-  resources :teams do
+  resources :seasons do
     resources :matches
   end
-
 
 end
