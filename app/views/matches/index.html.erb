@@ -1,0 +1,7 @@
+<h2>All Matches</h2>
+<% @teams = Team.all %>
+<% @matches.each do |match| %>
+  <% home_team = @teams.find(match.home_team_id) %>
+  <% away_team = @teams.find(match.away_team_id) %>
+  <%= "#{home_team.name} vs #{away_team.name}" %>
+<% end %>
