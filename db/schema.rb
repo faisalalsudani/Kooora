@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171021204145) do
+ActiveRecord::Schema.define(version: 20171022094427) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -30,16 +30,19 @@ ActiveRecord::Schema.define(version: 20171021204145) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "matches", force: :cascade do |t|
-    t.datetime "date"
-    t.integer "team1_score"
-    t.integer "team2_score"
+  create_table "games", force: :cascade do |t|
+    t.bigint "team_id"
+    t.bigint "match_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "team_id"
-    t.string "home_team"
-    t.string "away_team"
-    t.index ["team_id"], name: "index_matches_on_team_id"
+    t.index ["match_id"], name: "index_games_on_match_id"
+    t.index ["team_id"], name: "index_games_on_team_id"
+  end
+
+  create_table "matches", force: :cascade do |t|
+    t.datetime "date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "players", force: :cascade do |t|
@@ -75,7 +78,8 @@ ActiveRecord::Schema.define(version: 20171021204145) do
   end
 
   add_foreign_key "competitions", "countries"
-  add_foreign_key "matches", "teams"
+  add_foreign_key "games", "matches"
+  add_foreign_key "games", "teams"
   add_foreign_key "players", "countries"
   add_foreign_key "players", "teams"
   add_foreign_key "seasons", "competitions"
