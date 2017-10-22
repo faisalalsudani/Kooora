@@ -17,7 +17,9 @@ require "sprockets/railtie"
 Bundler.require(*Rails.groups)
 
 module Kooora
+
   class Application < Rails::Application
+
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 5.1
 
@@ -27,17 +29,14 @@ module Kooora
 
     # Don't generate system test files.
     config.generators.system_tests = nil
-    console do
-     ActiveRecord::Base.connection
-   end
-   config.middleware.insert_before 0, Rack::Cors do
-     allow do
-       origins 'http://localhost:3000'
-       resource '*', :headers => :any, :methods => [:get, :post, :put, :delete, :options]
-     end
-   end
+      console do
+       ActiveRecord::Base.connection
+      end
+    config.middleware.insert_before 0, Rack::Cors do
+      allow do
+        origins 'http://localhost:3000'
+        resource '*', :headers => :any, :methods => [:get, :post, :put, :delete, :options]
+      end
+    end
   end
-
-
-
 end
