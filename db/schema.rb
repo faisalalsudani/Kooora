@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171021204145) do
+ActiveRecord::Schema.define(version: 20171022074725) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,15 +31,12 @@ ActiveRecord::Schema.define(version: 20171021204145) do
   end
 
   create_table "matches", force: :cascade do |t|
-    t.datetime "date"
-    t.integer "team1_score"
-    t.integer "team2_score"
+    t.integer "homeTeam_id"
+    t.integer "awayTeam_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "team_id"
-    t.string "home_team"
-    t.string "away_team"
-    t.index ["team_id"], name: "index_matches_on_team_id"
+    t.index ["awayTeam_id"], name: "index_matches_on_awayTeam_id"
+    t.index ["homeTeam_id"], name: "index_matches_on_homeTeam_id"
   end
 
   create_table "players", force: :cascade do |t|
@@ -75,7 +72,6 @@ ActiveRecord::Schema.define(version: 20171021204145) do
   end
 
   add_foreign_key "competitions", "countries"
-  add_foreign_key "matches", "teams"
   add_foreign_key "players", "countries"
   add_foreign_key "players", "teams"
   add_foreign_key "seasons", "competitions"
