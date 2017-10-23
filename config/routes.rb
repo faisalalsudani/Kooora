@@ -5,14 +5,6 @@ Rails.application.routes.draw do
     resources :countries do
       resources :teams, :players, :competitions
     end
-
-    resources :competitions do
-      resources :seasons, :teams, :competitions
-    end
-
-    resources :teams do
-      resources :players, :matches
-    end
   end
 
   resources :countries do
@@ -26,7 +18,5 @@ Rails.application.routes.draw do
   resources :teams do
     resources :players, :matches
   end
-
-
 
 end
